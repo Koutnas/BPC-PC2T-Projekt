@@ -37,24 +37,21 @@ public abstract class Student {
 		return znamky;
 	}
 	public Double getStudijniPrumer() {
-		Integer soucet = 0;
-	
+		Double soucet = 0.0;
+		if(znamky.size()!= 0) {
 		for(int i = 0;i<znamky.size();++i) {
 			soucet = soucet + znamky.get(i);
 		}
 		return (double)(soucet/znamky.size());
+		}
+		return 0.0;
 	}
-	public Boolean addZnamku(Integer Znamka) {
-		if(Znamka<1 || Znamka>5) {
-			return false;
-		}
-		else {
-			znamky.add(Znamka);
-			return true;
-		}
+	
+	public void addZnamku(Integer Znamka) {
+		znamky.add(Znamka);
 	}
 	public String toString() {
-		return ("ID: "+id+", Jmeno: "+jmeno+", Prijmeni: "+prijmeni+", Rok Narozeni: "+narozeni+", Studijni Prumer: "+getStudijniPrumer());
+		return ("ID: "+id+", Jmeno: "+jmeno+", Prijmeni: "+prijmeni+", Rok Narozeni: "+String.valueOf(narozeni)+", Studijni Prumer: "+String.valueOf(getStudijniPrumer()));
 	}
 	
 	public abstract String SpecialAbility();
