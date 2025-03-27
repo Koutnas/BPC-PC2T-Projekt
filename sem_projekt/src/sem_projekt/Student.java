@@ -51,7 +51,7 @@ public abstract class Student {
 		znamky.add(Znamka);
 	}
 	public String toString() {
-		return ("ID: "+id+", Jmeno: "+jmeno+", Prijmeni: "+prijmeni+", Rok Narozeni: "+String.valueOf(narozeni)+", Studijni Prumer: "+String.valueOf(getStudijniPrumer()));
+		return ("ID: "+id+", Jmeno: "+jmeno+", Prijmeni: "+prijmeni+", Rok Narozeni: "+narozeni+", Studijni Prumer: "+getStudijniPrumer());
 	}
 	
 	public abstract String SpecialAbility();

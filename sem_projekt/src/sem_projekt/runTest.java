@@ -16,6 +16,10 @@ public class runTest {
 			System.out.println("2 .. vyhodit studenta z univerzity");
 			System.out.println("3 .. vypis informaci o studentovi");
 			System.out.println("4 .. zadat novou znamku studentovi");
+			System.out.println("5 .. spustit specialni vlastnost studenta");
+			System.out.println("6 .. vypis informace o vsech studentech nactenych v databazi");
+			System.out.println("7 .. vypis informaci o celkovem studijnim prumeru oboru");
+			System.out.println("8 .. vypis o celkovy pocet studentu v oborech");
 			
 			switch(volba(sc)) {
 			case 1:
@@ -29,6 +33,18 @@ public class runTest {
 				break;
 			case 4:
 				ovladac.pridatZnamku(sc);
+				break;
+			case 5:
+				ovladac.specialniVlastnost(sc);
+				break;
+			case 6:
+				ovladac.VypisStudentu();
+				break;
+			case 7:
+				ovladac.vypisPrumeru();
+				break;
+			case 8:
+				ovladac.vypisPocetStudentu();
 				break;
 			}
 		}

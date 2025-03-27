@@ -4,44 +4,46 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OvladacDatabaze {
-	StudentDatabaze databaze;
+	private StudentDatabaze databaze;
 	public OvladacDatabaze() {
 		this.databaze = new StudentDatabaze();
 	}
-	public void removeStudent(Scanner sc) {
-		Integer ID = null;
-		try {
-			System.out.print("Zadejte ID studenta (Integer): ");
-			ID = sc.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Byl zadan spatny typ");
-			sc.nextLine();
-			return;
-		}
-		if(databaze.getStudent(ID)==null) {
-			System.out.println("Error - Student s timto ID neexistuje");
-			return;
+	public void VypisStudentu() {
+		if(databaze.getCurrentSize() > 0 ) {
+		databaze.vypisStudentu();
 		}
 		else {
-			databaze.removeStudent(ID);
-			System.out.println("Student byl uspesne odebran");
+			System.out.println("Databaze neobsahuje ani jednoho studenta");
 		}
+	}
+	public void vypisPrumeru() {
+		if(databaze.getCurrentSize() > 0 ) {
+			databaze.vypisPrumerOboru();
+		}
+		else {
+			System.out.println("Databaze neobsahuje ani jednoho studenta");
+		}
+	}
+	public void vypisPocetStudentu(){
+		databaze.getPocetStudentu();
+	}
+	public void removeStudent(Scanner sc) {
+		Integer ID;
+		ID = checkStudentID(sc);
+		if(ID == null) {return;}
+		databaze.removeStudent(ID);
+		System.out.println("Student byl uspesne odebran");
 	}
 	public void pridatZnamku(Scanner sc) {
 		Integer Znamka = null;
-		Integer ID = null;
+		Integer ID;
+		ID = checkStudentID(sc);
+		if(ID == null) {return;}
 		try {
-			System.out.print("Zadejte ID studenta (Integer): ");
-			ID = sc.nextInt();
-			System.out.print("Zadejte znamku kterou chcete pridat (Integer): ");
+			System.out.print("Zadejte znamku, kterou chcete pridat: ");
 			Znamka = sc.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Byl zadan spatny typ");
-			sc.nextLine();
-			return;
-		}
-		if(databaze.getStudent(ID)==null) {
-			System.out.println("Error - Student s timto ID neexistuje");
+		}catch(InputMismatchException e){
+			System.out.println("Byl zadan spatny typ.");
 			return;
 		}
 		if(Znamka <= 5 && Znamka>=1) {
@@ -56,25 +58,12 @@ public class OvladacDatabaze {
 	}
 	
 	public void getStudent(Scanner sc) {
-		Integer ID = null;
-		
-		try {
-			System.out.println("Zadejte ID studenta (Integer): ");
-			ID = sc.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Byl zadan spatny typ");
-			sc.nextLine();
-			return;
+		Integer ID;
+		ID = checkStudentID(sc);
+		if(ID == null) {return;}
+		System.out.println(databaze.getStudent(ID));
 		}
-		
-		if(databaze.getStudent(ID)==null) {
-			System.out.println("Error - Student s timto ID neexistuje");
-			return;
-		}
-		else {
-			System.out.println(databaze.getStudent(ID));
-		}
-	}
+	
 	public void addStudentManual(Scanner sc) {
 		String jmeno = null;
 		String prijmeni = null;
@@ -116,4 +105,30 @@ public class OvladacDatabaze {
 
 		
 	}
+	public void specialniVlastnost(Scanner sc) {
+			Integer ID;
+			ID = checkStudentID(sc);
+			if(ID == null) {return;}
+			System.out.println(databaze.getStudent(ID).SpecialAbility());
+		}
+
+	private Integer checkStudentID(Scanner sc) {
+		Integer ID = null;
+		
+		try {
+			System.out.print("Zadejte ID studenta (Integer): ");
+			ID = sc.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Byl zadan spatny typ");
+			sc.nextLine();
+			return null;
+		}
+		if(databaze.getStudent(ID)==null) {
+			System.out.println("Error - Student s timto ID neexistuje");
+			return null;}
+		
+		return ID;
+	}
+
 }
+
