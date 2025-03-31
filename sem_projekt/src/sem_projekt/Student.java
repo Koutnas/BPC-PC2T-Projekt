@@ -1,7 +1,8 @@
 package sem_projekt;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Student {
+public abstract class Student implements Comparable<Student>,Serializable{
 	
 	protected Integer id;
 	protected String jmeno;
@@ -16,7 +17,10 @@ public abstract class Student {
 		this.narozeni = narozeni;
 		this.znamky = znamky;
 	}
-
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,6 +56,10 @@ public abstract class Student {
 	}
 	public String toString() {
 		return ("ID: "+id+", Jmeno: "+jmeno+", Prijmeni: "+prijmeni+", Rok Narozeni: "+narozeni+", Studijni Prumer: "+getStudijniPrumer());
+	}
+	@Override
+	public int compareTo(Student other) {
+		return this.prijmeni.compareTo(other.getPrijmeni());
 	}
 	
 	public abstract String SpecialAbility();

@@ -20,6 +20,8 @@ public class runTest {
 			System.out.println("6 .. vypis informace o vsech studentech nactenych v databazi");
 			System.out.println("7 .. vypis informaci o celkovem studijnim prumeru oboru");
 			System.out.println("8 .. vypis o celkovy pocet studentu v oborech");
+			System.out.println("9 .. ulozit studenta do souboru");
+			System.out.println("10 .. nacist studenta ze souboru");
 			
 			switch(volba(sc)) {
 			case 1:
@@ -45,6 +47,12 @@ public class runTest {
 				break;
 			case 8:
 				ovladac.vypisPocetStudentu();
+				break;
+			case 9:
+				ovladac.ulozitStudenta(sc);
+				break;
+			case 10:
+				ovladac.nacistStudenta(sc);
 				break;
 			}
 		}

@@ -126,9 +126,48 @@ public class OvladacDatabaze {
 		if(databaze.getStudent(ID)==null) {
 			System.out.println("Error - Student s timto ID neexistuje");
 			return null;}
-		
 		return ID;
 	}
-
+	public void ulozitStudenta(Scanner sc) {
+		Integer ID;
+		String nazevSouboru;
+		
+		ID = checkStudentID(sc);
+		if(ID == null) {return;}
+		try {
+			System.out.print("Zadejte nazev souboru do ktereho chcete studenta ulozit (String): ");
+			nazevSouboru = sc.next();
+		}catch(InputMismatchException e) {
+			System.out.println("Byl zadan spatny typ.");
+			return;
+		}
+		if(!databaze.saveStudent(ID,nazevSouboru)) {
+			System.out.println("Nastala chyba pri ukladani souboru");
+			return;
+		}
+		System.out.println("Student byl uspesne ulozen.");
+	}
+	public void nacistStudenta(Scanner sc){
+		String nazevSouboru;
+		Student newStudent;
+		
+		try {
+			System.out.print("Zadejte nazev souboru do ktereho chcete studenta ulozit (String): ");
+			nazevSouboru = sc.next();
+		}catch(InputMismatchException e) {
+			System.out.println("Byl zadan spatny typ.");
+			return;
+		}
+		newStudent = databaze.loadStudent(nazevSouboru);
+		if(newStudent == null) {
+			System.out.println("Nastala chyba pri nacitani studenta ze souboru.");
+			return;
+		}
+		if(databaze.zaraditStudenta(newStudent)) {
+			System.out.println("Student byl uspesne pridan ze souboru.");
+			return;
+		}
+		System.out.println("Student byl uspesne pridan ze souboru, ale nastala kolize s ID proto nacteny student dostal nove ID.");
+	}
 }
 

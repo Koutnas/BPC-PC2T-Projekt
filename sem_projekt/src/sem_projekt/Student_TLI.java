@@ -14,7 +14,7 @@ public class Student_TLI extends Student{
 		String morse_jmeno_prijmeni = "";
 		
 		for(int i = 0;i<(jmeno.length());++i) {
-			if(i == 0) {
+			if((int)jmeno.charAt(i)<(int)'a') {
 				morse_jmeno_prijmeni = morse_jmeno_prijmeni + morse[((int)jmeno.charAt(i)+32-(int)'a')]+" ";
 			}
 			else {
@@ -23,7 +23,7 @@ public class Student_TLI extends Student{
 		}
 		morse_jmeno_prijmeni = morse_jmeno_prijmeni + "  ";
 		for(int i = 0;i<(prijmeni.length());++i) {
-			if(i == 0) {
+			if((int)prijmeni.charAt(i)<(int)'a') {
 				morse_jmeno_prijmeni = morse_jmeno_prijmeni + morse[((int)prijmeni.charAt(i)+32-(int)'a')]+" ";
 			}
 			else {

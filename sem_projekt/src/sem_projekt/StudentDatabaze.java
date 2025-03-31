@@ -1,7 +1,10 @@
 package sem_projekt;
 import java.util.HashMap;
-import java.util.Comparator;
-import java.util.Collections;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class StudentDatabaze {
@@ -23,18 +26,23 @@ public class StudentDatabaze {
 		StudentHashMap.put(NextStudentID, student);
 		NextStudentID = NextStudentID + 1;
 		}
+	
 	public Student getStudent(Integer ID) {
 		return StudentHashMap.get(ID);
 	}
+	
 	public void removeStudent(Integer ID) {
 		StudentHashMap.remove(ID);
 	}
+	
 	public void addZnamka(Integer ID,Integer Znamka) {
 		StudentHashMap.get(ID).addZnamku(Znamka);
 	}
+	
 	public Integer getCurrentSize(){
 		return StudentHashMap.size();
 	}
+	
 	public void vypisStudentu() {
 		ArrayList<Student> IBE = new ArrayList<Student>();
 		ArrayList<Student> TLI = new ArrayList<Student>();
@@ -47,8 +55,8 @@ public class StudentDatabaze {
 				TLI.add(student);
 			}
 		}
-		Collections.sort(IBE,Comparator.comparing(s -> s.getPrijmeni()));
-		Collections.sort(TLI,Comparator.comparing(s -> s.getPrijmeni()));
+		IBE.sort(null);
+		TLI.sort(null);
 		
 		System.out.println("Studenti studujici obor IBE: ");
 		for(int i=0; i<IBE.size();++i) {
@@ -61,32 +69,31 @@ public class StudentDatabaze {
 		
 	}
 	public void vypisPrumerOboru() {
-		ArrayList<Student> IBE = new ArrayList<Student>();
-		ArrayList<Student> TLI = new ArrayList<Student>();
-		Double Soucet = 0.0;
+		Double SoucetIBE = 0.0;
+		Integer PocetIBE = 0;
+		Double SoucetTLI = 0.0;
+		Integer PocetTLI = 0;
+		
 		for(Student student: StudentHashMap.values()) {
 			if(student instanceof Student_IBE) {
-				IBE.add(student);
+				SoucetIBE = SoucetIBE + student.getStudijniPrumer();
+				PocetIBE = PocetIBE + 1;
 			}
 			else {
-				TLI.add(student);
+				SoucetTLI = SoucetTLI + student.getStudijniPrumer();
+				PocetTLI = PocetTLI + 1;
 			}
 		}
-		for(int i=0; i<IBE.size();++i) {
-			Soucet = Soucet+IBE.get(i).getStudijniPrumer();
-		}
-		if (IBE.size() > 0) {System.out.println("Celkovy studijni prumer v oboru IBE: "+(Soucet/IBE.size()));}
+
+		if (PocetIBE > 0) {System.out.println("Celkovy studijni prumer v oboru IBE: "+(double)(SoucetIBE/PocetIBE));}
 		else {System.out.println("Celkovy studijni prumer v oboru IBE: "+0.0);}
-		Soucet = 0.0;
-		for(int i=0; i<TLI.size();++i) {
-			Soucet = Soucet+TLI.get(i).getStudijniPrumer();
-		}
-		if (TLI.size() > 0) {System.out.println("Celkovy studijni prumer v oboru TLI: "+(Soucet/TLI.size()));}
+		if (PocetTLI > 0) {System.out.println("Celkovy studijni prumer v oboru TLI: "+(double)(SoucetTLI/PocetTLI));}
 		else {System.out.println("Celkovy studijni prumer v oboru IBE: "+0.0);}
 		
 	}
 	public void getPocetStudentu() {
 		Integer IBE = 0 ,TLI = 0;
+		
 		for(Student student: StudentHashMap.values()) {
 			if(student instanceof Student_IBE) {
 				IBE = IBE + 1;
@@ -95,7 +102,50 @@ public class StudentDatabaze {
 				TLI = TLI + 1;
 			}
 		}
+		
 		System.out.println("Celkovy pocet studentu, studujici obor IBE:"+IBE);
 		System.out.println("Celkovy pocet studentu, studujici obor TLI:"+TLI);
+	}
+	public Boolean saveStudent(Integer ID, String nazevSouboru) {
+		Student student = StudentHashMap.get(ID);
+		
+		try{
+			FileOutputStream soubor = new FileOutputStream(nazevSouboru+".ser");
+			ObjectOutputStream oos = new ObjectOutputStream(soubor);
+			oos.writeObject(student);
+			oos.close();
+			soubor.close();
+			return true;
+			
+		}catch(IOException e){
+			return false;
+		}
+	}
+	public Student loadStudent(String nazevSouboru) {
+		Student student;
+		try {
+		FileInputStream soubor = new FileInputStream(nazevSouboru+".ser");
+		ObjectInputStream ois = new ObjectInputStream(soubor);
+		
+		student = (Student)ois.readObject();
+		
+		ois.close();
+		soubor.close();
+		
+		return student;
+		}catch(IOException | ClassNotFoundException e) {
+			return null;
+		}
+	}
+	public Boolean zaraditStudenta(Student student) {
+		if(StudentHashMap.get(student.getId())==null) {
+			StudentHashMap.put(student.getId(), student);
+			return true;
+		}else{
+			student.setId(NextStudentID);
+			StudentHashMap.put(student.getId(), student);
+			NextStudentID = NextStudentID + 1;
+			return false;
+		}
 	}
 }
