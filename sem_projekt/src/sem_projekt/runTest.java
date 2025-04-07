@@ -6,6 +6,7 @@ public class runTest {
 	
 	public static void main(String[] args) {
 		OvladacDatabaze ovladac = new OvladacDatabaze();
+		ovladac.nacistStudenty();
 		Scanner sc = new Scanner(System.in);
 		Boolean run = true;
 		
@@ -22,6 +23,7 @@ public class runTest {
 			System.out.println("8 .. vypis o celkovy pocet studentu v oborech");
 			System.out.println("9 .. ulozit studenta do souboru");
 			System.out.println("10 .. nacist studenta ze souboru");
+			System.out.println("11 .. ukoncit program");
 			
 			switch(volba(sc)) {
 			case 1:
@@ -53,6 +55,10 @@ public class runTest {
 				break;
 			case 10:
 				ovladac.nacistStudenta(sc);
+				break;
+			case 11:
+				ovladac.ulozitStudenty();
+				run = false;
 				break;
 			}
 		}

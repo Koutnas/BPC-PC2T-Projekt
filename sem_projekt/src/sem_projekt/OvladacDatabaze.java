@@ -4,7 +4,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OvladacDatabaze {
+	
 	private StudentDatabaze databaze;
+	
 	public OvladacDatabaze() {
 		this.databaze = new StudentDatabaze();
 	}
@@ -168,6 +170,12 @@ public class OvladacDatabaze {
 			return;
 		}
 		System.out.println("Student byl uspesne pridan ze souboru, ale nastala kolize s ID proto nacteny student dostal nove ID.");
+	}
+	public void ulozitStudenty() {
+		databaze.saveToSQL();
+	}
+	public void nacistStudenty() {
+		databaze.loadFromSQL();
 	}
 }
 
