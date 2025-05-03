@@ -154,7 +154,7 @@ public class OvladacDatabaze {
 		Student newStudent;
 		
 		try {
-			System.out.print("Zadejte nazev souboru do ktereho chcete studenta ulozit (String): ");
+			System.out.print("Zadejte nazev souboru ze ktereho chcete studenta nacist (String): ");
 			nazevSouboru = sc.next();
 		}catch(InputMismatchException e) {
 			System.out.println("Byl zadan spatny typ.");
