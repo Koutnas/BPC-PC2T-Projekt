@@ -18,9 +18,9 @@ public class runTest {
 			System.out.println("3 .. vypis informaci o studentovi");
 			System.out.println("4 .. zadat novou znamku studentovi");
 			System.out.println("5 .. spustit specialni vlastnost studenta");
-			System.out.println("6 .. vypis informace o vsech studentech nactenych v databazi");
+			System.out.println("6 .. vypis informaci o vsech studentech nactenych v databazi");
 			System.out.println("7 .. vypis informaci o celkovem studijnim prumeru oboru");
-			System.out.println("8 .. vypis o celkovy pocet studentu v oborech");
+			System.out.println("8 .. vypis celkoveho pocetu studentu v oborech");
 			System.out.println("9 .. ulozit studenta do souboru");
 			System.out.println("10 .. nacist studenta ze souboru");
 			System.out.println("11 .. ukoncit program");
